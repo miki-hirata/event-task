@@ -39,8 +39,8 @@ User.sync().then(() => {// Userテーブルを作成し、作成後に以下処�
 
 //17章 GitHub 認証の実装 ここから
 var GitHubStrategy = require('passport-github2').Strategy;
-var GITHUB_CLIENT_ID = '2f831cb3d4aac02393aa';
-var GITHUB_CLIENT_SECRET = '9fbc340ac0175123695d2dedfbdf5a78df3b8067';
+var GITHUB_CLIENT_ID = '4757f33ace1c3c86b943';
+var GITHUB_CLIENT_SECRET = '505af1e82d226b3e56d7cead1bc823c44006a37d';
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -54,7 +54,8 @@ passport.deserializeUser(function (obj, done) {
 passport.use(new GitHubStrategy({
   clientID: GITHUB_CLIENT_ID,
   clientSecret: GITHUB_CLIENT_SECRET,
-  callbackURL: 'http://localhost:8000/auth/github/callback'
+  //callbackURL: 'http://localhost:8000/auth/github/callback'
+  allbackURL: process.env.HEROKU_URL ? process.env.HEROKU_URL + 'auth/github/callback' : 'http://localhost:8000/auth/github/callback'
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
