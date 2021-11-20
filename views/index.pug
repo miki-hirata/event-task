@@ -2,22 +2,23 @@ extends layout
 
 block content
   div.jumbotron.my-3
-    h1.display-4 予定調整くん
-    p.lead 予定調整くんは、GitHubで認証でき、予定を作って出欠が取れるサービスです
+    h1.display-4 イベントToDoリスト
+    p.lead イベントごとのToDoリストを作り、仲間と共有できるサービスです。
+    p.lead ユーザー認証はGitHubアカウントを通して行います。
   if user
     div
-      a(href="/schedules/new").btn.btn-info 予定を作る
-    - var hasSchedule = schedules.length > 0
-    //- 予定を持っているかどうかのフラグ
-    if hasSchedule
-      h3.my-3 あなたの作った予定一覧
+      a(href="/events/new").btn.btn-info イベントを作る
+    - var hasEvent = events.length > 0
+    //- イベントを持っているかどうかのフラグ
+    if hasEvent
+      h3.my-3 あなたの作ったイベント一覧
       table.table
         tr
-          th 予定名
+          th イベント名
           th 更新日時
-        each schedule in schedules
-          //- schedulesという配列をループ
+        each event in events
+          //- eventsという配列をループ
           tr
             td
-              a(href=`/schedules/${schedule.scheduleId}`) #{schedule.scheduleName}
-            td #{schedule.formattedUpdatedAt}
+              a(href=`/events/${event.eventId}`) #{event.eventName}
+            td #{event.formattedUpdatedAt}

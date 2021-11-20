@@ -1,18 +1,18 @@
 extends layout
 
 block content
-  form(method="post", action="/schedules").my-3
-    //- 19章 ログイン時にしか表示されない予定作成フォームを作成
-    //- schedules というパスに POST メソッドを 送信
+  form(method="post", action="/events").my-3
+    //- 19章 ログイン時にしか表示されないイベント作成フォームを作成
+    //- events というパスに POST メソッドを 送信
     input(type="hidden" name="_csrf" value!=csrfToken)
     //- 24章 CSRF 脆弱性対策
     div.form-group
-      label(for="scheduleName") 予定名
-      input(type="text" name="scheduleName")#scheduleName.form-control
+      label(for="eventName") イベント名
+      input(type="text" name="eventName")#eventName.form-control
     div.form-group
       label(for="memo") メモ
       textarea(name="memo")#memo.form-control
     div.form-group
-      label(for="candidates") 候補日程 (改行して複数入力してください)
-      textarea(name="candidates" rows="4")#candidates.form-control
-    button(type="submit").btn.btn-info 予定をつくる
+      label(for="tasks") タスク (改行して複数入力してください)
+      textarea(name="tasks" rows="4")#tasks.form-control
+    button(type="submit").btn.btn-info イベントをつくる

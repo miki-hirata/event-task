@@ -1,4 +1,4 @@
-module.exports = {//21章 AJAX による出欠の更新で実装
+module.exports = {//21章 AJAX による進捗の更新で実装
   context: __dirname + '/app',
   entry: './entry',
   mode: 'none',

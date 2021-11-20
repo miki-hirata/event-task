@@ -4,7 +4,7 @@ const {sequelize, DataTypes} = require('./sequelize-loader');
 const Comment = sequelize.define(
   'comments',
   {
-    scheduleId: {
+    eventId: {
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false
@@ -24,7 +24,7 @@ const Comment = sequelize.define(
     timestamps: false
   }
 );
-//scheduleId と userId で複合主キーを作成し、
-//その主キーの作成順番が、scheduleId > userId という順番となってるので
-//scheduleId のインデックス設定が不要　→　 主キーのインデックスを使う
+//eventId と userId で複合主キーを作成し、
+//その主キーの作成順番が、eventId > userId という順番となってるので
+//eventId のインデックス設定が不要　→　 主キーのインデックスを使う
 module.exports = Comment;

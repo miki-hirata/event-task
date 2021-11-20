@@ -10,29 +10,29 @@ var passport = require('passport');//17章 GitHub 認証の実装
 //18章 リレーションの設定ここから
 // モデルの読み込み
 var User = require('./models/user');//ユーザーモデル読み込み
-var Schedule = require('./models/schedule');//スケジュールモデル読み込み
-var Availability = require('./models/availability');//出欠モデル読み込み
-var Candidate = require('./models/candidate');//候補モデル読み込み
+var Event = require('./models/event');//スケジュールモデル読み込み
+var State = require('./models/state');//進捗モデル読み込み
+var Candidate = require('./models/task');//タスクモデル読み込み
 var Comment = require('./models/comment');//コメントモデル読み込み
 
 User.sync().then(() => {// Userテーブルを作成し、作成後に以下処理を実行
 
-  Schedule.belongsTo(User, { foreignKey: 'createdBy' });
-  // 予定がユーザーに従属していることを定義
-  // ScheduleのcreatedByをUserの外部キーに設定
-  Schedule.sync();//Scheduleテーブルを作成（上で読み込んだモデルに基づいて作成される）
+  Event.belongsTo(User, { foreignKey: 'createdBy' });
+  // イベントがユーザーに従属していることを定義
+  // EventのcreatedByをUserの外部キーに設定
+  Event.sync();//Eventテーブルを作成（上で読み込んだモデルに基づいて作成される）
 
   Comment.belongsTo(User, { foreignKey: 'userId' });
   //コメントがユーザーに従属していることを定義
   //usersのuserIdをCommentの外部キーに設定
   Comment.sync();//Commentテーブルを作成
 
-  Availability.belongsTo(User, { foreignKey: 'userId' });
-  //出欠がユーザーに従属していることを定義
-  Candidate.sync().then(() => {//候補日程テーブル作成
-    Availability.belongsTo(Candidate, { foreignKey: 'candidateId' });
-    //出欠が候補に従属していることを定期
-    Availability.sync();//出欠テーブル作成
+  State.belongsTo(User, { foreignKey: 'userId' });
+  //進捗がユーザーに従属していることを定義
+  Candidate.sync().then(() => {//タスク日程テーブル作成
+    State.belongsTo(Candidate, { foreignKey: 'taskId' });
+    //進捗がタスクに従属していることを定期
+    State.sync();//進捗テーブル作成
   });
 });
 //18章 リレーションの設定ここまで
@@ -76,8 +76,8 @@ passport.use(new GitHubStrategy({
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
-var schedulesRouter = require('./routes/schedules');//19章 routes/schedules.jsを読み込み
-var availabilitiesRouter = require('./routes/availabilities');//20章 routes/availabilities.jsを読み込み
+var eventsRouter = require('./routes/events');//19章 routes/events.jsを読み込み
+var statesRouter = require('./routes/states');//20章 routes/states.jsを読み込み
 var commentsRouter = require('./routes/comments');//21章 コメントの更新の Web API の実装
 
 var app = express();
@@ -100,9 +100,9 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-app.use('/schedules', schedulesRouter);//19章 routes/schedules.jsをルーターとして/schedulesのパスに登録
-app.use('/schedules', availabilitiesRouter);//20章 routes/availabilities.jsををルーターとして/schedulesのパスに登録
-app.use('/schedules', commentsRouter);//21章 コメントの更新の Web API の実装
+app.use('/events', eventsRouter);//19章 routes/events.jsをルーターとして/eventsのパスに登録
+app.use('/events', statesRouter);//20章 routes/states.jsををルーターとして/eventsのパスに登録
+app.use('/events', commentsRouter);//21章 コメントの更新の Web API の実装
 
 app.get('/auth/github',
   passport.authenticate('github', { scope: ['user:email'] }),

@@ -1,22 +1,22 @@
 'use strict';//19章 ES6 の形で全て書き換え
 const express = require('express');
 const router = express.Router();
-const Schedule = require('../models/schedule');
+const Event = require('../models/event');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  const title = '予定調整くん';
+  const title = 'イベント調整くん';
   if (req.user) {
-    Schedule.findAll({//条件があうレコードを全て取得
+    Event.findAll({//条件があうレコードを全て取得
       where: {
-        createdBy: req.user.id//自分が作成した予定をしぼりこみ
+        createdBy: req.user.id//自分が作成したイベントをしぼりこみ
       },
       order: [['updatedAt', 'DESC']]//作成日時順にソート
-    }).then((schedules) => {
+    }).then((events) => {
       res.render('index', {
         title: title,
         user: req.user,
-        schedules: schedules
+        events: events
       });
     });
   } else {

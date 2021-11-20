@@ -16,9 +16,9 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: schedule_arranger
+      POSTGRES_DB: event_arranger
     volumes:
-      - schedule-arranger-data:/var/lib/postgresql/data
+      - event-arranger-data:/var/lib/postgresql/data
 volumes:
-  schedule-arranger-data:
+  event-arranger-data:
     external: true

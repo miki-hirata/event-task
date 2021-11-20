@@ -94,50 +94,50 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_1__);
- //21章 AJAX による出欠の更新で実装
+ //21章 AJAX による進捗の更新で実装
 
 
 globalThis.jQuery = jquery__WEBPACK_IMPORTED_MODULE_0___default.a; //23章 bootstrap Node.js において実行環境のグローバルオブジェクトを参照
 
  //23章 bootstrapの読み込み
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default()('.availability-toggle-button').each(function (i, e) {
-  //jQuery: availability-toggle-button という class が 設定されている要素をセレクタで取得
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('.state-toggle-button').each(function (i, e) {
+  //jQuery: state-toggle-button という class が 設定されている要素をセレクタで取得
   //各要素に対して引数 i は順番、 引数 e は HTML 要素が渡される関数を実行
   var button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e);
   button.click(function () {
-    var scheduleId = button.data('schedule-id'); // jQuery の data 関数を使用して data-* 属性を取得
+    var eventId = button.data('event-id'); // jQuery の data 関数を使用して data-* 属性を取得
 
     var userId = button.data('user-id');
-    var candidateId = button.data('candidate-id');
-    var availability = parseInt(button.data('availability')); //数値の計算をしたいため、 parseInt 関数を利用して文字列から数値に変換
+    var taskId = button.data('task-id');
+    var state = parseInt(button.data('state')); //数値の計算をしたいため、 parseInt 関数を利用して文字列から数値に変換
 
-    var nextAvailability = (availability + 1) % 3; //次の出欠の数値: 1 を足して 3 の剰余 (0 → 1 → 2 → 0 → 1 → 2 と循環) 
+    var nextState = (state + 1) % 3; //次の進捗の数値: 1 を足して 3 の剰余 (0 → 1 → 2 → 0 → 1 → 2 と循環) 
 
-    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/schedules/".concat(scheduleId, "/users/").concat(userId, "/candidates/").concat(candidateId), {
-      availability: nextAvailability
-    }, //出欠更新の Web API の呼び出し
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/events/".concat(eventId, "/users/").concat(userId, "/tasks/").concat(taskId), {
+      state: nextState
+    }, //進捗更新の Web API の呼び出し
     function (data) {
       //実行結果を受け取って button 要素の data-* 属性を更新
-      button.data('availability', data.availability);
-      var availabilityLabels = ['欠', '？', '出'];
-      button.text(availabilityLabels[data.availability]); //23章デザインの改善
+      button.data('state', data.state);
+      var stateLabels = ['未', '今', '済'];
+      button.text(stateLabels[data.state]); //23章デザインの改善
 
       var buttonStyles = ['btn-danger', 'btn-secondary', 'btn-success'];
       button.removeClass('btn-danger btn-secondary btn-success');
-      button.addClass(buttonStyles[data.availability]);
+      button.addClass(buttonStyles[data.state]);
     });
   });
 }); //- 21章 AJAX によるコメントの更新ここから
 
 var buttonSelfComment = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#self-comment-button');
 buttonSelfComment.click(function () {
-  var scheduleId = buttonSelfComment.data('schedule-id');
+  var eventId = buttonSelfComment.data('event-id');
   var userId = buttonSelfComment.data('user-id');
   var comment = prompt('コメントを255文字以内で入力してください。'); // prompt 関数を利用 →　コマンドプロンプトでコメントを入力できる
 
   if (comment) {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/schedules/".concat(scheduleId, "/users/").concat(userId, "/comments"), {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default.a.post("/events/".concat(eventId, "/users/").concat(userId, "/comments"), {
       comment: comment
     }, function (data) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#self-comment').text(data.comment);

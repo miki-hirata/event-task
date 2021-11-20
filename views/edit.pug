@@ -1,31 +1,31 @@
 extends layout
-//- 22章予定編集フォームの実装
+//- 22章イベント編集フォームの実装
 
 block content
-  h3.my-3 予定の編集
-  form(method="post", action=`/schedules/${schedule.scheduleId}?edit=1`)
+  h3.my-3 イベントの編集
+  form(method="post", action=`/events/${event.eventId}?edit=1`)
     //- 本当はputメソッドとかの方がいいけど、hmtlのフォームだとできない
     //- 24章 CSRF 脆弱性対策
     input(type="hidden" name="_csrf" value!=csrfToken)
     div.form-group
-      label(for="scheduleName") 予定名
-      input(type="text" name="scheduleName" value=schedule.scheduleName)#scheduleName.form-control
+      label(for="eventName") イベント名
+      input(type="text" name="eventName" value=event.eventName)#eventName.form-control
       //-value で今までのデータを入れて、変えたければ入力できるようにしておく
     div.form-group
       label(for="memo") メモ
-      textarea(name="memo")#memo.form-control #{schedule.memo}
+      textarea(name="memo")#memo.form-control #{event.memo}
     div.form-group
-      label 既存の日程候補
+      label 既存のタスク
       ul.list-group
-        each candidate in candidates
-          li.list-group-item #{candidate.candidateName}
-      label(for="candidates").my-2 候補日程の追加 (改行して複数入力してください)
-      textarea(name="candidates")#candidates.form-control
+        each task in tasks
+          li.list-group-item #{task.taskName}
+      label(for="tasks").my-2 タスクの追加 (改行して複数入力してください)
+      textarea(name="tasks")#tasks.form-control
     div
-      button(type="submit").btn.btn-info 以上の内容で予定を編集する
+      button(type="submit").btn.btn-info 以上の内容でイベントを編集する
   h3.my-3 危険な変更
-  form(method="post", action=`/schedules/${schedule.scheduleId}?delete=1`)
+  form(method="post", action=`/events/${event.eventId}?delete=1`)
     //- 本当はdeleteメソッドの方がいいけど、hmtlのフォームだとできない
     //- 24章 CSRF 脆弱性対策
     input(type="hidden" name="_csrf" value!=csrfToken)
-    button(type="submit").btn.btn-danger この予定を削除する
+    button(type="submit").btn.btn-danger このイベントを削除する

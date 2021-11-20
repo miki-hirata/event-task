@@ -1,5 +1,5 @@
 # yotei_for_textbook
-N予備校「予定調整くん」勉強用書き込みファイル
+N予備校「イベント調整くん」勉強用書き込みファイル
 
 ## yarn install memo
 ### 17章 X-Powered-By ヘッダの除去 [helmet]　
@@ -40,19 +40,19 @@ yarn add pg@8.5.1
 yarn add pg-hstore@2.3.3
 ```
   
-### 19章 予定作成フォームから送られた情報を保存 [UUID]
+### 19章 イベント作成フォームから送られた情報を保存 [UUID]
 ```
 yarn add uuid@3.3.2
 ```
 `uuid.v4()`を呼び出すと、 UUID の 文字列が取得される
     
-### 21章 AJAX による出欠の更新 [webpack/babel/jQuery]
+### 21章 AJAX による進捗の更新 [webpack/babel/jQuery]
 ```
 yarn add webpack@4.26.1 webpack-cli@3.1.2 @babel/core@7.1.6 @babel/preset-env@7.1.6 babel-loader@8.0.4 --dev  
 yarn add jquery@3.4.1  
 ```
 
-### 21章 AJAX による出欠の更新 [webpack/babel/jQuery]
+### 21章 AJAX による進捗の更新 [webpack/babel/jQuery]
 ```
 yarn add webpack@4.26.1 webpack-cli@3.1.2 @babel/core@7.1.6 @babel/preset-env@7.1.6 babel-loader@8.0.4 --dev  
 yarn add jquery@3.4.1  
@@ -74,7 +74,7 @@ yarn add jquery@3.4.1
 ```
 =======
 # yotei_for_textbook
-N予備校「予定調整くん」勉強用書き込みファイル
+N予備校「イベント調整くん」勉強用書き込みファイル
 
 ## yarn install memo
 ### 開発の準備 [express]　
@@ -124,19 +124,19 @@ yarn add pg@8.5.1
 yarn add pg-hstore@2.3.3
 ```
   
-### 19章 予定作成フォームから送られた情報を保存 [UUID]
+### 19章 イベント作成フォームから送られた情報を保存 [UUID]
 ```
 yarn add uuid@3.3.2
 ```
 `uuid.v4()`を呼び出すと、 UUID の 文字列が取得される
     
-### 21章 AJAX による出欠の更新 [webpack/babel/jQuery]
+### 21章 AJAX による進捗の更新 [webpack/babel/jQuery]
 ```
 yarn add webpack@4.26.1 webpack-cli@3.1.2 @babel/core@7.1.6 @babel/preset-env@7.1.6 babel-loader@8.0.4 --dev  
 yarn add jquery@3.4.1  
 ```
 
-### 21章 AJAX による出欠の更新 [webpack/babel/jQuery]
+### 21章 AJAX による進捗の更新 [webpack/babel/jQuery]
 ```
 yarn add webpack@4.26.1 webpack-cli@3.1.2 @babel/core@7.1.6 @babel/preset-env@7.1.6 babel-loader@8.0.4 --dev  
 yarn add jquery@3.4.1  
