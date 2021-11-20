@@ -2,6 +2,12 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../models/event');
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -13,6 +19,9 @@ router.get('/', (req, res, next) => {
       },
       order: [['updatedAt', 'DESC']]//作成日時順にソート
     }).then((events) => {
+      events.forEach((event) => {
+        event.formattedUpdatedAt = dayjs(event.updatedAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm');
+      });
       res.render('index', {
         title: title,
         user: req.user,
